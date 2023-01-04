@@ -1,6 +1,6 @@
 {
   "name": "exo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "src/server.ts",
   "repository": "https://github.com/Frederic-Ferreira/node",
