@@ -1,6 +1,6 @@
 {
   "name": "fred-b3-nodejs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "src/server.ts",
   "repository": "https://github.com/Frederic-Ferreira/node",
