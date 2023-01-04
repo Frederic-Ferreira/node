@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server.ts",
+  "repository": "https://github.com/Frederic-Ferreira/node",
   "scripts": {
     "start": "NODE_OPTIONS=\"--experimental-specifier-resolution=node --loader ts-node/esm\" node --watch src/server.ts"
   },
