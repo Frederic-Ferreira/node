@@ -1,4 +1,21 @@
-import { prisma } from './prisma'
+import { prisma } from "./prisma";
+
+export function createPost(content: string, userId: string) {
+  return prisma.post.create({
+    data: {
+      content,
+      userId,
+    },
+  });
+}
+
+export function findPosts() {
+  return prisma.post.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+}
 
 export function createUser(email: string, name: string) {
   return prisma.user.create({
@@ -6,7 +23,7 @@ export function createUser(email: string, name: string) {
       email,
       name,
     },
-  })
+  });
 }
 
 export function updateUser(id: string, email: string, name: string) {
@@ -18,7 +35,7 @@ export function updateUser(id: string, email: string, name: string) {
       email,
       name,
     },
-  })
+  });
 }
 
 export function deleteUser(id: string) {
@@ -26,7 +43,7 @@ export function deleteUser(id: string) {
     where: {
       id,
     },
-  })
+  });
 }
 
 export function findUserByEmail(email: string) {
@@ -34,17 +51,17 @@ export function findUserByEmail(email: string) {
     where: {
       email,
     },
-  })
+  });
 }
 
 export function findUserByid(id: string) {
   if (!id) {
-    return null
+    return null;
   }
   // .user property available because of the model created by prisma
   return prisma.user.findUnique({
     where: {
       id,
     },
-  })
+  });
 }

@@ -5,7 +5,9 @@
   "main": "src/server.ts",
   "repository": "https://github.com/Frederic-Ferreira/node",
   "scripts": {
-    "start": "NODE_OPTIONS=\"--experimental-specifier-resolution=node --loader ts-node/esm\" node --watch src/server.ts"
+    "start": "NODE_OPTIONS=\"--experimental-specifier-resolution=node --loader ts-node/esm\" node --watch src/server.ts",
+    "lint": "eslint .",
+    "fix": "eslint --fix ."
   },
   "author": "",
   "license": "ISC",
@@ -16,10 +18,17 @@
     "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
     "express-ws": "^5.0.2",
+    "pug": "^3.0.2",
     "ws": "^8.11.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.15",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.3",
     "prisma": "^4.8.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"

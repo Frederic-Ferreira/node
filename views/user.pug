@@ -1,0 +1,11 @@
+html
+  head
+    title='Update profile'
+  body
+    form(action="/profile", method="POST")
+      input(type="text", name="name", placeholder=name) 
+      input(type="text", name="email", placeholder=email)
+      button(type="submit")="Update profile"
+
+    form(action="/delete", method="POST") 
+      button(type="submit")="Delete Profile"

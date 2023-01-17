@@ -1,0 +1,25 @@
+{
+  "extends": ["eslint:recommended"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": 13
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true
+
+  },
+  "rules": {
+    "semi": "off",
+    "prettier/prettier": "error",
+    "indent": "off"
+  }, 
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"]
+    }
+  ]
+}
