@@ -10,8 +10,9 @@ export function getProfile(app: Application) {
       return;
     }
     const { email, name } = user;
+    let path = user.avatar ? user.avatar : "";
 
     // pass email and name to the pug template user
-    res.render("user", { email, name });
+    res.render("user", { email, name, path });
   });
 }

@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import expressWs, { Application } from "express-ws";
 import cookieParser from "cookie-parser";
 import path from "path";
@@ -14,6 +14,7 @@ import { getProfile } from "./routes/getProfile";
 import { updateProfile } from "./routes/updateProfile";
 import { deleteProfile } from "./routes/deleteProfile";
 import { getLogout } from "./routes/getLogout";
+import { postAvatar } from "./routes/postAvatar";
 
 function main() {
   const app = express() as unknown as Application;
@@ -39,6 +40,7 @@ function main() {
   // Rather than check on each route, the middleware check authentification for all routes after it
   app.use(authentificationMiddleware);
 
+  postAvatar(app);
   getLogout(app);
   getProfile(app);
   updateProfile(app);
@@ -49,10 +51,12 @@ function main() {
 
   // rend accessible le dossier public et son contenu depuis une url
   app.use(express.static(path.join(process.cwd(), "public")));
+  //app.use(express.static(path.join(process.cwd(), "public/images")));
 
-  app.use((err: Error, req: Request, res: Response) => {
+  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     console.error(err);
     res.status(500).send("Internal error");
+    next();
   });
 
   app.listen(3000, () => {

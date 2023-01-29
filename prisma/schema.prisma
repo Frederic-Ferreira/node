@@ -12,16 +12,20 @@ datasource db {
 
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+  posts Post[]
   email String @unique
   name String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  avatar String?
 }
 
 model Post{
   content String
-  userId String
+  author User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
   id String @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  image String?
 }

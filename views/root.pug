@@ -10,10 +10,11 @@ html
     a(href="/chat")="Chat"
     a(href="/logout")="Logout"
 
-    form(method="POST") 
+    form#form-upload(method="POST", enctype="multipart/form-data") 
         textarea#post-area(name="post", cols="30", rows="10") 
+        label="(Optional image)"
+        input#my-files(type="file", name="image", accept="image/*") 
         button(type="submit")="Submit your post"
-    -
     
       
     div#posts-list

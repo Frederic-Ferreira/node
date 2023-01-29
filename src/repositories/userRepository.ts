@@ -9,6 +9,15 @@ export function createPost(content: string, userId: string) {
   });
 }
 
+export function createPostImage(content: string, userId: string) {
+  return prisma.post.create({
+    data: {
+      content,
+      userId,
+    },
+  });
+}
+
 export function findPosts() {
   return prisma.post.findMany({
     orderBy: {
@@ -34,6 +43,17 @@ export function updateUser(id: string, email: string, name: string) {
     data: {
       email,
       name,
+    },
+  });
+}
+
+export function addUserPicture(id: string, path: string) {
+  return prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      avatar: path,
     },
   });
 }
