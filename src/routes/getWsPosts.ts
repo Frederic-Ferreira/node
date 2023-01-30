@@ -12,8 +12,7 @@ export function getWsPosts(app: Application, sockets: Map<string, WebSocket>) {
 
     sockets.set(user.id, ws);
     ws.on("message", async (msg: any) => {
-      console.log(typeof msg, msg);
-      // await createPost(msg, user.id);
+      await createPost(msg, user.id);
 
       sockets.forEach((socket) => {
         if (socket !== ws)

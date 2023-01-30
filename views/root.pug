@@ -12,14 +12,18 @@ html
 
     form#form-upload(method="POST", enctype="multipart/form-data") 
         textarea#post-area(name="post", cols="30", rows="10") 
-        label="(Optional image)"
+        label="Post an image"
         input#my-files(type="file", name="image", accept="image/*") 
         button(type="submit")="Submit your post"
     
       
     div#posts-list
       each item in posts
-        li= item
+        if item.content
+          li= item.content
+        else if item.image
+          li
+            img(src="images/" + item.image)
   
       script 
         include post.js 

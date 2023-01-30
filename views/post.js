@@ -1,7 +1,7 @@
 const postsList = document.getElementById("posts-list");
 
-function uploadFile(files, socket) {
-  let file = files[0];
+const sendFile = (myFiles, ws) => {
+  let file = myFiles[0];
 
   if (!file) {
     return;
@@ -12,12 +12,11 @@ function uploadFile(files, socket) {
 
   reader.onload = function (e) {
     rawData = e.target.result;
-    socket.send(rawData);
-    socket.send(file.name);
+    ws.send(rawData);
   };
 
   reader.readAsArrayBuffer(file);
-}
+};
 
 let ws;
 function connect() {
@@ -29,6 +28,25 @@ function connect() {
   };
 }
 
+let wsImage;
+function connectWsImage() {
+  wsImage = new WebSocket("ws://localhost:3000/ws-posts-image");
+
+  wsImage.onmessage = (event) => {
+    const { type, data } = JSON.parse(event.data);
+    if (type === "reply") addImage(data.msg);
+  };
+}
+
+async function addImage(path) {
+  const li = document.createElement("li");
+  const image = document.createElement("img");
+  const pathName = "images/" + path;
+  image.src = pathName;
+  li.appendChild(image);
+  postsList.prepend(li);
+}
+
 async function addMessage(content) {
   const message = document.createElement("li");
   message.innerText = content;
@@ -36,16 +54,19 @@ async function addMessage(content) {
 }
 
 connect();
+connectWsImage();
 
 document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
-  // await sendFile();
   const inputText = document.querySelector("#post-area");
   const myFiles = document.getElementById("my-files").files;
-  addMessage(inputText.value);
-  uploadFile(myFiles, ws);
-
-  // ws.send(JSON.stringify(myFiles));
-  // ws.send(inputText.value);
-  inputText.value = "";
+  const postValue = inputText.value.trim();
+  if (myFiles) {
+    sendFile(myFiles, wsImage);
+  }
+  if (postValue !== "") {
+    ws.send(postValue);
+    addMessage(postValue);
+    inputText.value = "";
+  }
 });

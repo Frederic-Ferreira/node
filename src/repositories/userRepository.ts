@@ -9,10 +9,10 @@ export function createPost(content: string, userId: string) {
   });
 }
 
-export function createPostImage(content: string, userId: string) {
+export function createPostImage(image: string, userId: string) {
   return prisma.post.create({
     data: {
-      content,
+      image,
       userId,
     },
   });
