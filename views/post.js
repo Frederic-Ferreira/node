@@ -1,21 +1,15 @@
 const postsList = document.getElementById("posts-list");
 
-const sendFile = (myFiles, ws) => {
-  let file = myFiles[0];
-
-  if (!file) {
-    return;
-  }
-
+const sendFile = (myFile, ws) => {
   const reader = new FileReader();
-  let rawData = new ArrayBuffer();
 
-  reader.onload = function (e) {
-    rawData = e.target.result;
-    ws.send(rawData);
+  reader.readAsDataURL(myFile);
+
+  reader.onload = () => {
+    const dataUrl = reader.result;
+    ws.send(dataUrl);
+    addImage(dataUrl);
   };
-
-  reader.readAsArrayBuffer(file);
 };
 
 let ws;
@@ -24,49 +18,45 @@ function connect() {
 
   ws.onmessage = (event) => {
     const { type, data } = JSON.parse(event.data);
-    if (type === "reply") addMessage(data.msg);
+    console.log(type);
+    if (type === "post") {
+      addMessage(data.msg);
+    }
+    if (type === "image") {
+      addImage(data.msg);
+    }
   };
 }
 
-let wsImage;
-function connectWsImage() {
-  wsImage = new WebSocket("ws://localhost:3000/ws-posts-image");
+connect();
 
-  wsImage.onmessage = (event) => {
-    const { type, data } = JSON.parse(event.data);
-    if (type === "reply") addImage(data.msg);
-  };
-}
-
-async function addImage(path) {
+function addImage(data) {
   const li = document.createElement("li");
   const image = document.createElement("img");
-  const pathName = "images/" + path;
-  image.src = pathName;
+  image.src = data;
   li.appendChild(image);
   postsList.prepend(li);
 }
 
-async function addMessage(content) {
+function addMessage(content) {
   const message = document.createElement("li");
   message.innerText = content;
   postsList.prepend(message);
 }
 
-connect();
-connectWsImage();
-
 document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
   const inputText = document.querySelector("#post-area");
-  const myFiles = document.getElementById("my-files").files;
+  const inputFile = document.getElementById("my-files");
+  const file = inputFile.files[0];
   const postValue = inputText.value.trim();
-  if (myFiles) {
-    sendFile(myFiles, wsImage);
-  }
   if (postValue !== "") {
     ws.send(postValue);
     addMessage(postValue);
     inputText.value = "";
+  }
+  if (file) {
+    sendFile(file, ws);
+    inputFile.value = "";
   }
 });

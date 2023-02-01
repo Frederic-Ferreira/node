@@ -6,7 +6,6 @@ import { getLogin } from "./routes/getLogin";
 import { getRoot } from "./routes/getRoot";
 import { getWs } from "./routes/getWs";
 import { getWsPosts } from "./routes/getWsPosts";
-import { getWsPostImage } from "./routes/getWsPostImage";
 import { postLogin } from "./routes/postLogin";
 import { authentificationMiddleware } from "./middlewares/authentificationMiddleware";
 import { getRegister } from "./routes/getRegister";
@@ -16,7 +15,6 @@ import { updateProfile } from "./routes/updateProfile";
 import { deleteProfile } from "./routes/deleteProfile";
 import { getLogout } from "./routes/getLogout";
 import { postAvatar } from "./routes/postAvatar";
-import { postImage } from "./routes/postImage";
 
 function main() {
   const app = express() as unknown as Application;
@@ -43,7 +41,6 @@ function main() {
   app.use(authentificationMiddleware);
 
   postAvatar(app);
-  postImage(app);
   getLogout(app);
   getProfile(app);
   updateProfile(app);
@@ -51,7 +48,6 @@ function main() {
   getRoot(app);
   getWs(app, sockets);
   getWsPosts(app, sockets);
-  getWsPostImage(app, sockets);
 
   // rend accessible le dossier public et son contenu depuis une url
   app.use(express.static(path.join(process.cwd(), "public")));
