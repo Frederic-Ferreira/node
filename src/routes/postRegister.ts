@@ -1,8 +1,9 @@
 import { createUser, findUserByEmail } from "../repositories/userRepository";
 import { Application } from "express-ws";
+import { connectedUserMiddleware } from "../middlewares/connectedUserMiddleware";
 
 export function postRegister(app: Application) {
-  app.post("/register", async (req, res) => {
+  app.post("/register", connectedUserMiddleware, async (req, res) => {
     const { email, name } = req.body;
     if (!email || !name) {
       res.status(400).send("Bad request");

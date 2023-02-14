@@ -1,10 +1,7 @@
 import { Application } from "express-ws";
 import { WebSocket } from "ws";
-import {
-  findUserByid,
-  createPost,
-  createPostImage,
-} from "../repositories/userRepository";
+import { createPost, createPostImage } from "../repositories/postRepository";
+import { findUserByid } from "../repositories/userRepository";
 import fs from "fs";
 import path from "path";
 
