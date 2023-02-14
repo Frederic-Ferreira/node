@@ -4,6 +4,12 @@ html
     style  
       include style.css 
   body
+  nav
+    a(href="/")="Posts" 
+    a(href="/profile")="Profile settings"
+    a(href="/chat")="Chat"
+    a(href="/logout")="Logout"
+
   div#form-profile
     img(src="images/" + path)
     form(action="/profile", method="POST")
@@ -11,9 +17,9 @@ html
       input(type="text", name="email", placeholder=email)
       button(type="submit")="Update email/name"
 
-  form#form-upload(action="/avatar", method="POST", enctype="multipart/form-data")
+  form#avatar-upload(action="/avatar", method="POST", enctype="multipart/form-data")
     input#my-files(type="file", name="image", accept="image/*") 
     button(type="submit")="Upload/Update avatar"
 
-  form(action="/delete", method="POST") 
+  form#delete-profile(action="/delete", method="POST") 
     button(type="submit")="Delete Profile"

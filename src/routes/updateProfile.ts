@@ -6,7 +6,12 @@ export function updateProfile(app: Application) {
     const id = req.signedCookies.ssid;
     const { email, name } = req.body;
 
-    const user = await updateUser(id, name, email);
+    if (!email || !name) {
+      res.status(500).send("Email or name not good.");
+      return;
+    }
+
+    const user = await updateUser(id, email, name);
     if (!user) {
       res.status(401).send("User not found");
       return;

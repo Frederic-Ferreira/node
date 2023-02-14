@@ -14,8 +14,6 @@ export function postAvatar(app: Application) {
       return;
     }
 
-    console.log(req.files);
-
     const files = req.files;
     const image = files?.image as UploadedFile;
     if (!image) {

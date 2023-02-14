@@ -4,26 +4,28 @@ html
     style  
         include style.css 
   body
-  h1="Welcome"
-  nav 
+  nav
+    a(href="/")="Posts" 
     a(href="/profile")="Profile settings"
     a(href="/chat")="Chat"
     a(href="/logout")="Logout"
+    
 
-    form#form-upload(method="POST", enctype="multipart/form-data") 
-        textarea#post-area(name="post", cols="30", rows="10") 
+  form#form-upload(method="POST", enctype="multipart/form-data") 
+      textarea#post-area(name="post", cols="30", rows="10") 
+      div#inner-form
         label="Post an image"
         input#my-files(type="file", name="image", accept="image/*") 
-        button(type="submit")="Submit your post"
+      button(type="submit")="Submit your post"
+  
     
-      
-    div#posts-list
-      each item in posts
-        if item.content
-          li= item.content
-        else if item.image
-          li
-            img(src="images/" + item.image)
+  div#posts-list
+    each item in posts
+      if item.content
+        li= item.content
+      else if item.image
+        li
+          img(src="images/" + item.image)
   
       script 
         include post.js 

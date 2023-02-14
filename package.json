@@ -1,7 +1,7 @@
 {
   "name": "fred-b3-nodejs",
-  "version": "1.0.2",
-  "description": "",
+  "version": "1.2.0",
+  "description": "Node project from Fred",
   "main": "src/server.ts",
   "repository": "https://github.com/Frederic-Ferreira/node",
   "scripts": {
@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "fix": "eslint --fix ."
   },
-  "author": "",
+  "author": "Frédéric Ferreira",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.8.0",

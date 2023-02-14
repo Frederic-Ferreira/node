@@ -9,6 +9,7 @@ const sendFile = (myFile, ws) => {
     const dataUrl = reader.result;
     ws.send(dataUrl);
     addImage(dataUrl);
+    console.log("hello from the client");
   };
 };
 
@@ -18,7 +19,6 @@ function connect() {
 
   ws.onmessage = (event) => {
     const { type, data } = JSON.parse(event.data);
-    console.log(type);
     if (type === "post") {
       addMessage(data.msg);
     }
